@@ -76,6 +76,23 @@ app.get('/weather', (req, res) => {
   })
 })
 
+app.get('/weather/me', (req, res) => {
+  const latitude = req.query.latitude
+  const longitude = req.query.longitude
+
+  forecast(latitude, longitude, (error, forecastData) => {
+    if (error) {
+      return res.send({
+        error
+      })
+    }
+
+    res.send({
+      forecast: forecastData
+    })
+  })
+})
+
 app.get('/help/*', (req, res) => {
   res.render('404', {
     title: '404',
